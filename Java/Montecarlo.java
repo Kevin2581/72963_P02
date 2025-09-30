@@ -1,24 +1,33 @@
-import java.util.Random; 
+import java.util.Random;
 
-public class MonteCarlo {
+public class MonteCarloPi {
 
-    private static void main (String[] args) {
-        int totalSamples = 1_000_000;
-        long insideCircle = 0;
-        Random rand = new Random();
+    public static void main(String[] args) {
+        int muestrasTotales = 1_000_000;
+        int dentroDelCirculo = 0;
 
-        for(int i = 0; i < totalSamples; i++) {
-            double x = rand.nextDouble();
-            double y = rand.nextDouble();
-            if(x * x + y * y <= 1.0) {
-                insideCircle++;
+        Random generador = new Random();
+        long inicio = System.currentTimeMillis();
+
+        for (int i = 0; i < muestrasTotales; i++) {
+            double coordX = generador.nextDouble();
+            double coordY = generador.nextDouble();
+
+            if (coordX * coordX + coordY * coordY <= 1.0) {
+                dentroDelCirculo++;
             }
         }
 
-        double piApprox = (4.0 * insideCircle) / totalSamples;
-        System.out.println("Numero total de puntos: " + totalSamples);
-        System.out.println("Puntos dentro de circulo: " + insideCircle);
-        System.out.println("Aproximacion de pi: " + piApprox);
-        System.out.println("Error: " + Math.abs(piApprox - Math.PI));
+        long fin = System.currentTimeMillis();
+
+        double piEstimado = 4.0 * dentroDelCirculo / muestrasTotales;
+
+        System.out.println("Total de muestras: " + muestrasTotales);
+        System.out.println("Puntos dentro del círculo: " + dentroDelCirculo);
+        System.out.println("Estimación de π: " + piEstimado);
+        System.out.println("Error absoluto: " + Math.abs(piEstimado - Math.PI));
+        System.out.println("Tiempo de ejecución: " + (fin - inicio) + " ms");
     }
 }
+
+//Kevin del Jesus Gonzalez Maas - 72963
